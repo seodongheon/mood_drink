@@ -9,28 +9,30 @@
 
 ## 🎯 2. 세부 과업 (Tasks)
 
-- [ ] **Task 1.1: 환경 변수 및 의존성 패키지 설정**
+- [x] **Task 1.1: 환경 변수 및 의존성 패키지 설정**
   - AI API Key 연동을 위한 `.env.local` 및 템플릿 `.env.example` 구성
-  - 데이터 유효성 검증을 위한 `zod` 패키지 설치 (`pnpm add zod`)
-- [ ] **Task 1.2: 공통 데이터 타입 및 스키마 정의 (`lib/types.ts`)**
+  - 데이터 유효성 검증을 위한 `zod` 패키지 설치 (`npm install zod`)
+- [x] **Task 1.2: 공통 데이터 타입 및 스키마 정의 (`lib/types.ts`, `lib/schema.ts`)**
   - 사용자 입력 모델 (`RecommendationRequest`)
-  - AI 추천 응답 모델 (`RecommendationResponse`: `comfort`, `drink`, `snack`, `isFallback`, `timestamp`)
-  - 에러 응답 모델 (`ApiErrorResponse`)
-- [ ] **Task 1.3: Route Handler 골격 생성 (`app/api/recommend/route.ts`)**
+  - AI 추천 응답 모델 (`RecommendationResponse`: `comfort`, `drink`, `snack`, `isFallback`)
+  - 에러 응답 모델 (`ApiError`)
+  - Zod 기반 입력/출력 런타임 스키마 정의 (`requestSchema`, `recommendationResultSchema`)
+- [x] **Task 1.3: Route Handler 골격 생성 (`app/api/recommend/route.ts`)**
   - POST 요청 수신 및 Request Body 파싱
-  - 입력값 기본 유효성 검사 (0자/빈칸, 300자 초과 방어)
-  - 임시 Mock 응답 반환 테스트
+  - 입력값 기본 유효성 검사 (0자/빈칸, 5자 미만, 300자 초과 방어)
+  - 키워드 기반 매핑 및 규격화된 JSON 응답 반환 테스트 완료
 
 ---
 
 ## 📦 3. 주요 산출물 (Deliverables)
-1. `lib/types.ts`
-2. `lib/schema.ts`
-3. `app/api/recommend/route.ts`
-4. `.env.example`
+1. [`lib/types.ts`](file:///c:/mood-based-drink-recommender/lib/types.ts)
+2. [`lib/schema.ts`](file:///c:/mood-based-drink-recommender/lib/schema.ts)
+3. [`app/api/recommend/route.ts`](file:///c:/mood-based-drink-recommender/app/api/recommend/route.ts)
+4. [`.env.example`](file:///c:/mood-based-drink-recommender/.env.example)
+5. [`scripts/test-api.mjs`](file:///c:/mood-based-drink-recommender/scripts/test-api.mjs)
 
 ---
 
 ## ✅ 4. 완료 기준 (Definition of Done)
-- [ ] `POST /api/recommend`로 텍스트 전송 시 규격화된 JSON 응답이 반환된다.
-- [ ] TypeScript 타입 에러 및 린트 에러 없이 빌드된다.
+- [x] `POST /api/recommend`로 텍스트 전송 시 규격화된 JSON 응답이 반환된다.
+- [x] TypeScript 타입 에러 및 린트 에러 없이 프로덕션 빌드(`npm run build`)가 성공한다.

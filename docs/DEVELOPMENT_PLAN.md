@@ -55,16 +55,17 @@ gantt
 > 📁 상세 문서: [docs/sprint-1/README.md](file:///c:/mood-based-drink-recommender/docs/sprint-1/README.md)  
 > **목표**: 일관된 데이터 구조 정의, 환경 설정 및 백엔드 API 엔드포인트 골격 구축
 
-- [ ] **Task 1.1**: 프로젝트 환경 변수 및 AI SDK 의존성 설정
+- [x] **Task 1.1**: 프로젝트 환경 변수 및 AI SDK 의존성 설정
   - `.env.local` 및 `.env.example` 템플릿 구성 (`AI_API_KEY`, `AI_MODEL` 등)
-  - 필요한 유틸리티 라이브러리 검토 및 설치 (`zod` 등)
-- [ ] **Task 1.2**: 공통 데이터 인터페이스 및 스키마 정의 (`lib/types.ts`)
-  - `RecommendationRequest` (텍스트, 길이 등)
-  - `RecommendationResponse` (`comfort`, `drink`, `snack`, `isFallback`, `timestamp`)
-  - `ApiErrorResponse` (`code`, `message`, `retryable`)
-- [ ] **Task 1.3**: Next.js Route Handler 생성 (`app/api/recommend/route.ts`)
+  - 데이터 유효성 검증 패키지 설치 (`zod`)
+- [x] **Task 1.2**: 공통 데이터 인터페이스 및 스키마 정의 (`lib/types.ts`, `lib/schema.ts`)
+  - `RecommendationRequest` (텍스트 등)
+  - `RecommendationResponse` (`comfort`, `drink`, `snack`, `isFallback`)
+  - `ApiError` (`code`, `message`, `retryable`)
+  - `requestSchema`, `recommendationResultSchema`
+- [x] **Task 1.3**: Next.js Route Handler 생성 (`app/api/recommend/route.ts`)
   - POST 요청 파싱 및 기본 응답 뼈대 구축
-  - 클라이언트 입력값 기본 유효성 검사 로직 작성
+  - 클라이언트 입력값 기본 유효성 검사 로직 및 테스트 완료
 
 ---
 
