@@ -51,7 +51,8 @@ gantt
 
 ---
 
-### 🔹 Sprint 1: 프로젝트 기반 구축 & 데이터 모델링
+### 🔹 [Sprint 1: 프로젝트 기반 구축 & 데이터 모델링](file:///c:/mood-based-drink-recommender/docs/sprint-1/README.md)
+> 📁 상세 문서: [docs/sprint-1/README.md](file:///c:/mood-based-drink-recommender/docs/sprint-1/README.md)  
 > **목표**: 일관된 데이터 구조 정의, 환경 설정 및 백엔드 API 엔드포인트 골격 구축
 
 - [ ] **Task 1.1**: 프로젝트 환경 변수 및 AI SDK 의존성 설정
@@ -67,7 +68,8 @@ gantt
 
 ---
 
-### 🔹 Sprint 2: AI 추천 엔진 & 프롬프트/타임아웃 파이프라인
+### 🔹 [Sprint 2: AI 추천 엔진 & 프롬프트/타임아웃 파이프라인](file:///c:/mood-based-drink-recommender/docs/sprint-2/README.md)
+> 📁 상세 문서: [docs/sprint-2/README.md](file:///c:/mood-based-drink-recommender/docs/sprint-2/README.md)  
 > **목표**: PRD 요구 조건을 강제하는 프롬프트 엔지니어링, 3초 타임아웃 제어 및 Fail-safe 엔진 개발
 
 - [ ] **Task 2.1**: AI 프롬프트 엔지니어링 및 JSON Structured Output 강제
@@ -81,7 +83,8 @@ gantt
 
 ---
 
-### 🔹 Sprint 3: 프론트엔드 UI/UX & 유효성 검증 시스템
+### 🔹 [Sprint 3: 프론트엔드 UI/UX & 유효성 검증 시스템](file:///c:/mood-based-drink-recommender/docs/sprint-3/README.md)
+> 📁 상세 문서: [docs/sprint-3/README.md](file:///c:/mood-based-drink-recommender/docs/sprint-3/README.md)  
 > **목표**: PRD 화면 명세를 완벽히 반영한 인터랙티브 UI 컴포넌트 개발
 
 - [ ] **Task 3.1**: 사용자 입력 영역 및 글자 수 카운터 고도화
@@ -101,7 +104,8 @@ gantt
 
 ---
 
-### 🔹 Sprint 4: 엔드투엔드 연동 & 예외 처리 방어선 구축
+### 🔹 [Sprint 4: 엔드투엔드 연동 & 예외 처리 방어선 구축](file:///c:/mood-based-drink-recommender/docs/sprint-4/README.md)
+> 📁 상세 문서: [docs/sprint-4/README.md](file:///c:/mood-based-drink-recommender/docs/sprint-4/README.md)  
 > **목표**: 프론트엔드와 백엔드 API 연동 및 PRD 5번 항목의 예외 처리 시나리오 완벽 대응
 
 - [ ] **Task 4.1**: 클라이언트 API 호출 훅 / 핸들러 연동
@@ -116,7 +120,8 @@ gantt
 
 ---
 
-### 🔹 Sprint 5: QA, 성능 최적화 & PRD 완료 조건 검증
+### 🔹 [Sprint 5: QA, 성능 최적화 & PRD 완료 조건 검증](file:///c:/mood-based-drink-recommender/docs/sprint-5/README.md)
+> 📁 상세 문서: [docs/sprint-5/README.md](file:///c:/mood-based-drink-recommender/docs/sprint-5/README.md)  
 > **목표**: PRD 6대 완료 조건 전수 점검, 반응형/접근성 검증 및 배포 준비
 
 - [ ] **Task 5.1**: PRD 6대 완료 조건 전수 검증 (Verification Checklist)
