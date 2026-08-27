@@ -159,6 +159,7 @@ gantt
 | **3초 타임아웃 & Fallback** | Sprint 2, 4 | `lib/fallback.ts`, `lib/ai.ts`, `hooks/use-recommendation.ts` | 3초 초과 시 맥주/치킨 기본값 노출 |
 | **네트워크/서버 에러 대응** (재시도 안내) | Sprint 4 | `components/error-toast.tsx`, `hooks/use-recommendation.ts` | 에러 배너 안내 후 버튼 즉시 재활성화 |
 | **UI 보호 & 재시도 가능** | Sprint 4 | `hooks/use-recommendation.ts`, `app/page.tsx` | 파싱 실패 방어 & 상시 재추천 가능 |
+| **QA 및 완료 조건 전수 검증** | Sprint 5 | `docs/sprint-5/QA_REPORT.md`, `app/layout.tsx` | PRD 6대 완료 조건 100% 통과 및 빌드 무결성 보장 |
 
 ---
 
