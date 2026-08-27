@@ -68,6 +68,12 @@ const SCENARIO_FALLBACK_GROUPS: ScenarioFallbackGroup[] = [
         isFallback: true,
       },
       {
+        comfort: '끝없는 에러와 과제에 지친 밤, 쌉싸름한 소주 한 잔으로 오늘 하루의 스트레스를 털어내세요.',
+        drink: '살얼음 띄운 시원한 소주 (진로 / 새로)',
+        snack: '얼큰하고 칼칼한 차돌 라면과 바삭한 김치전',
+        isFallback: true,
+      },
+      {
         comfort: '수많은 버그와 마감 압박을 이겨낸 당신에게 시원하고 알싸한 한 잔을 선물합니다.',
         drink: '쌉싸름하고 홉 향 가득한 IPA 맥주',
         snack: '매콤한 칠리 치즈 나초 플래터',
@@ -91,9 +97,21 @@ const SCENARIO_FALLBACK_GROUPS: ScenarioFallbackGroup[] = [
         isFallback: true,
       },
       {
+        comfort: '가슴속 답답함을 시원하게 씻어내고 싶을 때, 묵직하고 깔끔한 소주 한 잔이 큰 위로가 될 거예요.',
+        drink: '깔끔하고 차가운 소주 (참이슬 / 처음처럼)',
+        snack: '따끈하고 깊은 국물의 포차식 어묵탕',
+        isFallback: true,
+      },
+      {
         comfort: '누구에게도 털어놓지 못한 마음, 조용히 당신의 편이 되어줄 따뜻한 밤을 보냅니다.',
         drink: '은은한 오크향의 싱글몰트 위스키 (온더락)',
         snack: '깊은 풍미의 다크 초콜릿과 무화과 크래커',
+        isFallback: true,
+      },
+      {
+        comfort: '오늘따라 마음이 쓸쓸하고 힘든 당신에게, 부드럽고 깊은 풍미의 증류주를 추천해요.',
+        drink: '프리미엄 증류식 소주 (화요 25 / 서울의 밤)',
+        snack: '매콤 고소한 삼겹 두부김치',
         isFallback: true,
       },
       {
