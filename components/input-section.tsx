@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { LoaderCircle, RotateCcw, Send, Sparkles } from 'lucide-react';
+import { LoaderCircle, RotateCcw, Sparkles } from 'lucide-react';
 
 export type ValidationErrorType = 'EMPTY' | 'TOO_SHORT' | null;
 
@@ -63,12 +63,12 @@ export function InputSection({
   const errorMessage = getErrorMessage();
 
   return (
-    <div className="rounded-2xl border border-border bg-card p-4 shadow-lg md:p-6 transition-all">
+    <div className="rounded-3xl border border-[#2C2719] bg-[#1F1B11]/90 p-5 shadow-2xl backdrop-blur-md md:p-7 transition-all">
       <div
-        className={`relative rounded-xl border bg-background transition-all duration-300 ${
+        className={`relative rounded-2xl border bg-[#161309]/80 transition-all duration-300 ${
           validationError
-            ? 'border-destructive ring-1 ring-destructive/40'
-            : 'border-border focus-within:border-foreground/80 focus-within:ring-1 focus-within:ring-foreground/20'
+            ? 'border-[#FF5A5F] ring-1 ring-[#FF5A5F]/40'
+            : 'border-[#2C2719] focus-within:border-[#FFB347]/60 focus-within:ring-2 focus-within:ring-[#FFB347]/15'
         }`}
       >
         <label htmlFor="mood-input" className="sr-only">
@@ -81,16 +81,16 @@ export function InputSection({
           onChange={handleChange}
           onKeyDown={handleKeyDown}
           placeholder="오늘 하루 어떤 일이 있었는지, 기분이 어떤지 편하게 적어주세요."
-          className="min-h-40 w-full resize-none bg-transparent px-4 pb-12 pt-4 text-sm leading-6 outline-none placeholder:text-muted-foreground/70 md:min-h-48 md:px-5 md:pt-5"
+          className="min-h-40 w-full resize-none bg-transparent px-5 pb-12 pt-5 text-sm leading-relaxed text-[#FDFCF9] outline-none placeholder:text-[#9C978B]/70 md:min-h-48 md:text-base md:px-6 md:pt-6"
           disabled={loading}
           aria-invalid={validationError !== null}
           aria-describedby={errorMessage ? 'validation-error-msg' : undefined}
         />
-        <div className="absolute bottom-3.5 right-4 flex items-center gap-2 font-mono text-[11px] text-muted-foreground select-none">
-          <span className={text.length >= maxLength ? 'text-destructive font-semibold' : ''}>
+        <div className="absolute bottom-4 right-5 flex items-center gap-2 font-mono text-xs text-[#9C978B] select-none">
+          <span className={text.length >= maxLength ? 'text-[#FF5A5F] font-semibold' : ''}>
             {text.length}
           </span>
-          <span>/</span>
+          <span className="opacity-50">/</span>
           <span>{maxLength}</span>
         </div>
       </div>
@@ -100,35 +100,35 @@ export function InputSection({
         <div
           id="validation-error-msg"
           role="alert"
-          className="mt-2.5 flex items-center gap-1.5 text-xs font-medium text-destructive animate-in fade-in slide-in-from-top-1 duration-200"
+          className="mt-3 flex items-center gap-2 text-xs font-medium text-[#FF5A5F] animate-in fade-in slide-in-from-top-1 duration-200"
         >
-          <span className="inline-block h-1.5 w-1.5 rounded-full bg-destructive" />
+          <span className="inline-block h-1.5 w-1.5 rounded-full bg-[#FF5A5F]" />
           {errorMessage}
         </div>
       )}
 
-      {/* '추천받기' 액션 버튼 및 로딩 인터랙션 */}
+      {/* '추천받기' 액션 버튼 (Nocturnal Comfort Amber Glow & Full Round) */}
       <button
         type="button"
         id="recommend-action-btn"
         onClick={onSubmit}
         disabled={loading}
-        className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3.5 text-sm font-semibold text-primary-foreground transition-all duration-200 hover:opacity-95 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60 shadow-md"
+        className="mt-5 flex w-full items-center justify-center gap-2 rounded-full bg-[#FFB347] px-6 py-4 text-sm font-bold text-[#161309] tracking-wide transition-all duration-300 hover:bg-[#ffbe5e] hover:shadow-[0_0_30px_rgba(255,179,71,0.45)] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 shadow-[0_0_20px_rgba(255,179,71,0.25)]"
       >
         {loading ? (
           <>
-            <LoaderCircle size={16} className="animate-spin text-primary-foreground" />
-            <span>고민 중...</span>
+            <LoaderCircle size={17} className="animate-spin text-[#161309]" />
+            <span>AI가 심야의 페어링을 고민 중...</span>
           </>
         ) : hasResult ? (
           <>
-            <RotateCcw size={15} />
-            <span>다시 추천받기</span>
+            <RotateCcw size={16} />
+            <span>다른 페어링 다시 추천받기</span>
           </>
         ) : (
           <>
-            <Sparkles size={15} />
-            <span>추천받기</span>
+            <Sparkles size={16} />
+            <span>오늘 밤 맞춤 한 잔 추천받기</span>
           </>
         )}
       </button>

@@ -1,18 +1,26 @@
 import { Analytics } from '@vercel/analytics/next';
-import { Noto_Sans_KR } from 'next/font/google';
+import { Noto_Sans_KR, Plus_Jakarta_Sans } from 'next/font/google';
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
+
+const plusJakartaSans = Plus_Jakarta_Sans({
+  subsets: ['latin'],
+  variable: '--font-sans',
+  display: 'swap',
+  weight: ['400', '500', '600', '700', '800'],
+});
 
 const notoSansKr = Noto_Sans_KR({
   subsets: ['latin'],
   variable: '--font-korean',
   display: 'swap',
+  weight: ['400', '500', '600', '700'],
 });
 
 export const metadata: Metadata = {
-  title: '오늘의 한 잔 (Mood Drink) — 오늘 하루도 고생 많았어요',
+  title: '오늘의 한 잔 (Mood Drink) — 심야의 위로 (Nocturnal Comfort)',
   description:
-    '지친 하루(코딩 과제, 헬스, 러닝, 방전된 기분)를 들려주시면, 당신의 밤을 따뜻하게 안아줄 맞춤 주종 1개와 안주 1개를 3초 안에 페어링해 드립니다.',
+    '지친 하루의 끝, 당신을 위한 따뜻한 조명과 한 잔의 위로. 맞춤 주종 1개와 안주 1개를 3초 안에 페어링해 드립니다.',
   keywords: [
     '술 추천',
     '안주 추천',
@@ -20,21 +28,23 @@ export const metadata: Metadata = {
     '혼술 추천',
     'AI 주류 큐레이터',
     'Mood Drink',
+    'Nocturnal Comfort',
+    '심야의 위로',
   ],
   authors: [{ name: 'Mood Drink Team' }],
   openGraph: {
-    title: '오늘의 한 잔 (Mood Drink) — 기분 맞춤 주종/안주 큐레이션',
+    title: '오늘의 한 잔 (Mood Drink) — 심야의 위로',
     description:
-      '지친 하루 끝, 당신을 위한 따뜻한 위로 멘트와 딱 맞는 주종/안주 페어링을 만나보세요.',
+      '지친 하루의 끝, 당신을 위한 따뜻한 조명과 한 잔의 위로. 맞춤 주종 1개와 안주 1개의 완벽한 페어링.',
     type: 'website',
     locale: 'ko_KR',
     siteName: 'Mood Drink',
   },
   twitter: {
     card: 'summary_large_image',
-    title: '오늘의 한 잔 (Mood Drink)',
+    title: '오늘의 한 잔 (Mood Drink) — 심야의 위로',
     description:
-      '지친 하루 끝, 당신을 위한 따뜻한 위로 멘트와 딱 맞는 주종/안주 페어링을 만나보세요.',
+      '지친 하루의 끝, 당신을 위한 따뜻한 조명과 한 잔의 위로. 맞춤 주종 1개와 안주 1개의 완벽한 페어링.',
   },
 };
 
@@ -42,11 +52,8 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
-  colorScheme: 'light dark',
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#f7f6f4' },
-    { media: '(prefers-color-scheme: dark)', color: '#121212' },
-  ],
+  colorScheme: 'dark',
+  themeColor: '#161309',
 };
 
 export default function RootLayout({
@@ -55,8 +62,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko" className="bg-background">
-      <body className={`${notoSansKr.variable} font-sans antialiased`}>
+    <html lang="ko" className="dark bg-[#161309]">
+      <body
+        className={`${plusJakartaSans.variable} ${notoSansKr.variable} font-sans antialiased bg-[#161309] text-[#FDFCF9] min-h-screen selection:bg-[#FFB347]/30 selection:text-[#FFB347]`}
+      >
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
