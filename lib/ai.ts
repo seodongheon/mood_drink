@@ -2,19 +2,26 @@ import { recommendationResultSchema } from './schema';
 import { RecommendationResult } from './types';
 import { getSmartFallback } from './fallback';
 
-export const SYSTEM_PROMPT = `당신은 지친 하루를 보낸 사람들의 마음을 보듬고, 기분과 상황에 딱 맞는 최고의 술과 안주를 페어링해주는 주류/미식 큐레이터입니다.
+export const SYSTEM_PROMPT = `당신은 지친 하루를 보낸 사람들의 마음을 깊이 공감하고, 그들의 기분과 상황에 가장 완벽하게 어울리는 술과 안주를 큐레이션해주는 대한민국 최고의 '주류 & 미식 소믈리에'입니다.
 
-[필수 규칙 및 제약사항]
-1. 사용자의 입력 상황(방전, 운동, 코딩/과제, 스트레스, 슬픔, 축하 등)에 깊이 공감하고 위로하는 멘트를 반드시 "1~2문장"으로 작성하세요.
-2. 추천 주종(drink)은 반드시 "1개"만 명확하게 추천하세요.
-3. 추천 안주(snack)는 주종 및 사용자의 상황과 찰떡궁합인 메뉴로 반드시 "1개"만 명확하게 추천하세요.
-4. 반드시 아래 JSON 스키마 형식의 순수 JSON만 반환하세요. 마크다운(\`\`\`json 등)이나 추가 텍스트를 포함하지 마세요.
+[사용자 상황 분석 및 큐레이션 가이드]
+1. 코딩/개발/과제/야근: 복잡한 뇌를 식혀줄 수 있는 시원하고 청량한 맥주/하이볼과 든든한 핑거푸드 페어링
+2. 운동/헬스/러닝: 땀 흘린 후 갈증을 해소해줄 가벼운 탄산 주류 및 단백질/부담 없는 건강 안주 페어링
+3. 스트레스/답답함/화남: 묵은 체증을 날려줄 강렬하고 시원한 한 잔 및 매콤하거나 짭조름한 안주 페어링
+4. 우울/외로움/차분한 밤: 따뜻하고 아늑한 위로가 되는 향긋한 와인/위스키/전통주와 부드러운 치즈/과일 페어링
+5. 기쁨/합격/축하: 오늘을 더욱 빛나게 해줄 화려한 스파클링 와인/칵테일과 스페셜 플래터 페어링
 
-[JSON 출력 형식]
+[절대 필수 준수 규칙]
+1. comfort (공감 멘트): 사용자의 입력 상황을 콕 짚어 따뜻하게 다독여주는 멘트를 "반드시 1~2문장의 완성된 문장"으로 작성하세요. 너무 길어지면 안 됩니다.
+2. drink (추천 주종): 상황에 딱 맞는 구체적인 주종 "1개"만 명확한 수식어와 함께 추천하세요. (예: '시원하고 청량한 제주 백록담 에일 맥주', '향긋하고 깔끔한 산토리 가쿠빈 진저 하이볼')
+3. snack (추천 안주): 주종과의 궁합(페어링)이 환상적인 메뉴 "1개"만 추천하세요. (예: '바삭하게 갓 튀긴 트러플 감자튀김', '신선한 하몽과 멜론 치즈 플래터')
+4. 반환 형식: 반드시 아래 JSON 스키마 규격의 순수 JSON만 반환하세요. 마크다운(\`\`\`json 등)이나 추가 설명 없이 { 로 시작해서 } 로 끝나는 유효한 JSON이어야 합니다.
+
+[JSON Schema]
 {
   "comfort": "공감과 위로의 따뜻한 멘트 (1~2문장)",
-  "drink": "상황에 어울리는 맞춤 주종 1개",
-  "snack": "주종과 어울리는 맞춤 안주 1개"
+  "drink": "상황 맞춤형 추천 주종 1개",
+  "snack": "주종 맞춤형 추천 안주 1개"
 }`;
 
 export interface AIOptions {
@@ -25,15 +32,15 @@ export interface AIOptions {
 }
 
 /**
- * Gemini REST API 호출
+ * 단일 Gemini 모델 API 호출 (REST v1beta)
  */
-async function callGemini(
+async function fetchGeminiModel(
   mood: string,
   apiKey: string,
-  model: string,
+  modelName: string,
   signal: AbortSignal
 ): Promise<string> {
-  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`;
 
   const requestBody = {
     system_instruction: {
@@ -65,8 +72,8 @@ async function callGemini(
         },
         required: ['comfort', 'drink', 'snack'],
       },
-      temperature: 0.7,
-      maxOutputTokens: 300,
+      temperature: 0.75,
+      maxOutputTokens: 350,
     },
   };
 
@@ -79,16 +86,47 @@ async function callGemini(
 
   if (!response.ok) {
     const errorText = await response.text().catch(() => '');
-    throw new Error(`Gemini API Error (${response.status}): ${errorText}`);
+    throw new Error(`Gemini API Error [${modelName}] (${response.status}): ${errorText}`);
   }
 
   const data = await response.json();
   const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
   if (!text) {
-    throw new Error('Gemini API returned empty text');
+    throw new Error(`Gemini API [${modelName}] returned empty candidate text`);
   }
 
   return text;
+}
+
+/**
+ * Gemini 다중 모델 자동 폴백 파이프라인 (gemini-2.0-flash -> gemini-1.5-flash)
+ */
+async function callGeminiWithFallback(
+  mood: string,
+  apiKey: string,
+  primaryModel: string,
+  signal: AbortSignal
+): Promise<string> {
+  const candidateModels = [
+    primaryModel,
+    primaryModel !== 'gemini-1.5-flash' ? 'gemini-1.5-flash' : 'gemini-2.0-flash',
+  ].filter(Boolean);
+
+  let lastError: unknown = null;
+
+  for (const model of candidateModels) {
+    try {
+      return await fetchGeminiModel(mood, apiKey, model, signal);
+    } catch (err: unknown) {
+      lastError = err;
+      if (signal.aborted) {
+        throw err;
+      }
+      console.warn(`[Gemini Fallback] Model ${model} failed, trying next candidate... Error:`, err);
+    }
+  }
+
+  throw lastError || new Error('All Gemini model candidates failed');
 }
 
 /**
@@ -141,9 +179,9 @@ async function callOpenAI(
  * Mock Provider (API 키 미설정 또는 개발/테스트용 지능형 Mock 생성기)
  */
 async function callMock(mood: string, signal: AbortSignal): Promise<string> {
-  // 실제 네트워크 지연 시뮬레이션 (150ms ~ 350ms)
+  // 실제 네트워크 지연 시뮬레이션 (150ms ~ 300ms)
   await new Promise<void>((resolve, reject) => {
-    const delay = Math.floor(Math.random() * 200) + 150;
+    const delay = Math.floor(Math.random() * 150) + 150;
     const timer = setTimeout(() => resolve(), delay);
 
     if (signal.aborted) {
@@ -178,18 +216,20 @@ export async function generateDrinkRecommendation(
 ): Promise<RecommendationResult> {
   const timeoutMs = options?.timeoutMs ?? parseInt(process.env.AI_TIMEOUT_MS || '3000', 10);
 
-  // Gemini API 키 우선순위 탐색 (GEMINI_API_KEY -> GOOGLE_API_KEY -> AI_API_KEY)
+  // Gemini API 키 우선순위 탐색
   const geminiKey =
+    options?.apiKey ||
     process.env.GEMINI_API_KEY ||
     process.env.GOOGLE_API_KEY ||
     process.env.GOOGLE_GENERATIVE_AI_API_KEY ||
     (process.env.AI_PROVIDER === 'gemini' ? process.env.AI_API_KEY : undefined);
 
   const openAiKey =
+    options?.apiKey ||
     process.env.OPENAI_API_KEY ||
     (process.env.AI_PROVIDER === 'openai' ? process.env.AI_API_KEY : undefined);
 
-  // Provider 결정 (명시적 지정 -> 키 존재 여부 기반 자동 감지 -> Mock)
+  // Provider 결정
   let provider = options?.provider ?? process.env.AI_PROVIDER;
   if (!provider || provider === 'mock') {
     if (geminiKey && geminiKey !== 'your_api_key_here' && geminiKey.trim().length > 0) {
@@ -202,8 +242,7 @@ export async function generateDrinkRecommendation(
   }
 
   const apiKey =
-    options?.apiKey ??
-    (provider === 'gemini' ? geminiKey : provider === 'openai' ? openAiKey : process.env.AI_API_KEY);
+    provider === 'gemini' ? geminiKey : provider === 'openai' ? openAiKey : process.env.AI_API_KEY;
 
   const model =
     options?.model ??
@@ -222,32 +261,32 @@ export async function generateDrinkRecommendation(
 
     // Provider 분기
     if (provider === 'gemini' && apiKey && apiKey !== 'your_api_key_here' && apiKey.trim().length > 0) {
-      console.log(`[AI Engine] Calling Google Gemini API (model: ${model})...`);
-      rawJsonResponse = await callGemini(mood, apiKey.trim(), model, controller.signal);
+      rawJsonResponse = await callGeminiWithFallback(mood, apiKey.trim(), model, controller.signal);
     } else if (provider === 'openai' && apiKey && apiKey !== 'your_api_key_here' && apiKey.trim().length > 0) {
-      console.log(`[AI Engine] Calling OpenAI API (model: ${model})...`);
       rawJsonResponse = await callOpenAI(mood, apiKey.trim(), model, controller.signal);
     } else {
-      console.log('[AI Engine] No valid API key found. Using Smart Mock engine...');
       rawJsonResponse = await callMock(mood, controller.signal);
     }
 
     clearTimeout(timeoutId);
 
-    // JSON 파싱 및 정제
+    // JSON 파싱 및 정제 (마크다운 코드블록 제거)
     let parsed: unknown;
     try {
-      const cleanJson = rawJsonResponse.replace(/```json/gi, '').replace(/```/g, '').trim();
+      const cleanJson = rawJsonResponse
+        .replace(/```json/gi, '')
+        .replace(/```/g, '')
+        .trim();
       parsed = JSON.parse(cleanJson);
     } catch (parseError) {
-      console.warn('AI Output JSON parsing failed, switching to Smart Fallback:', parseError);
+      console.warn('[AI Pipeline] JSON parse error, using smart fallback:', parseError);
       return getSmartFallback(mood, 'parse_error');
     }
 
     // Zod 스키마 검증
     const validationResult = recommendationResultSchema.safeParse(parsed);
     if (!validationResult.success) {
-      console.warn('AI Output failed Zod validation, switching to Smart Fallback:', validationResult.error);
+      console.warn('[AI Pipeline] Zod schema validation failed, using smart fallback:', validationResult.error);
       return getSmartFallback(mood, 'parse_error');
     }
 
