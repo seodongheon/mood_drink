@@ -1,7 +1,7 @@
 import { RecommendationResult } from './types';
 
 /**
- * PRD 5번 명세에 따른 기본 Fallback 문구 및 추천값
+ * PRD 5번 명세에 따른 기본 Fallback 문구 및 추천값 (헤비한 안주부터 가벼운 안주까지 고루 포함)
  */
 export const DEFAULT_FALLBACK_RECOMMENDATIONS: RecommendationResult[] = [
   {
@@ -11,15 +11,21 @@ export const DEFAULT_FALLBACK_RECOMMENDATIONS: RecommendationResult[] = [
     isFallback: true,
   },
   {
-    comfort: '생각이 많아지는 밤, 머릿속 복잡한 고민은 잠시 비워두고 시원하게 한 모금 들이켜보세요.',
+    comfort: '생각이 많아지는 밤, 머릿속 복잡한 고민은 잠시 비워두고 가볍게 한 모금 들이켜보세요.',
     drink: '탄산감 넘치는 얼음 생맥주',
-    snack: '매콤달콤한 닭강정과 웨지감자',
+    snack: '바삭하게 구운 먹태구이와 땡초 마요네즈',
     isFallback: true,
   },
   {
-    comfort: '오늘 하루도 정말 치열하게 버텨냈어요. 오늘 밤만큼은 아무 생각 없이 푹 쉬어가세요.',
+    comfort: '오늘 하루도 정말 치열하게 버텨냈어요. 부담 없는 안주와 함께 편안하게 쉬어가세요.',
+    drink: '향긋하고 깔끔한 산토리 하이볼',
+    snack: '고소한 명란구이와 아삭한 오이 슬라이스',
+    isFallback: true,
+  },
+  {
+    comfort: '지친 하루 끝에 작은 쉼표를 찍어보세요. 가볍고 달콤한 한 잔이 당신을 안아줄 거예요.',
     drink: '톡 쏘는 레몬 라거 맥주',
-    snack: '고소한 버터구이 오징어와 나쵸',
+    snack: '버터에 구운 브리 치즈와 견과류, 꿀',
     isFallback: true,
   },
 ];
@@ -27,7 +33,7 @@ export const DEFAULT_FALLBACK_RECOMMENDATIONS: RecommendationResult[] = [
 export const DEFAULT_FALLBACK_RECOMMENDATION = DEFAULT_FALLBACK_RECOMMENDATIONS[0];
 
 /**
- * 상황별 키워드 기반 스마트 Fallback 데이터셋 (다양한 옵션 제공)
+ * 상황별 키워드 기반 스마트 Fallback 데이터셋 (가벼운 안주 & 든든한 안주 황금 밸런스)
  */
 interface ScenarioFallbackGroup {
   keywords: string[];
@@ -39,21 +45,27 @@ const SCENARIO_FALLBACK_GROUPS: ScenarioFallbackGroup[] = [
     keywords: ['운동', '헬스', '러닝', '등산', '다이어트', '근육', '피트니스', '땀', '수영', '자전거'],
     results: [
       {
-        comfort: '오늘 온 힘을 다해 땀 흘린 당신, 정말 멋져요! 가볍고 깔끔한 한 잔으로 갈증과 피로를 날려보세요.',
+        comfort: '오늘 온 힘을 다해 땀 흘린 당신, 정말 멋져요! 부담 없는 깔끔한 핑거푸드로 갈증을 풀어보세요.',
         drink: '시원하고 가벼운 레몬 탄산 하이볼',
+        snack: '상큼한 바질 방울토마토 마리네이드와 리코타 치즈',
+        isFallback: true,
+      },
+      {
+        comfort: '힘든 운동 끝에 찾아오는 뿌듯함! 칼로리 부담 없이 산뜻하게 즐길 수 있는 메뉴예요.',
+        drink: '청량한 제로 토닉 위스키 하이볼',
+        snack: '고소한 명란구이와 아삭한 오이 슬라이스',
+        isFallback: true,
+      },
+      {
+        comfort: '근육까지 뻐근한 오늘, 시원한 수분 충전과 단백질 안주로 꿀잠을 청해보세요.',
+        drink: '깔끔하고 가벼운 라이트 라거',
         snack: '단백질 가득한 그릴드 닭가슴살 샐러드와 견과류',
         isFallback: true,
       },
       {
-        comfort: '힘든 운동 끝에 찾아오는 뿌듯함! 칼로리 부담 없이 청량하게 목을 축여보세요.',
-        drink: '청량한 제로 토닉워터 위스키 하이볼',
-        snack: '바삭하게 구운 두부 스테이크와 구운 채소',
-        isFallback: true,
-      },
-      {
-        comfort: '근육까지 뻐근한 오늘, 시원한 수분 충전과 함께 꿀잠을 청해보세요.',
-        drink: '깔끔하고 가벼운 라이트 라거',
-        snack: '신선한 연어 아보카도 롤',
+        comfort: '개운하게 운동 마친 오늘 밤, 가볍고 달콤한 과일 안주와 함께 쉬어가세요.',
+        drink: '달콤 상큼한 유자 하이볼',
+        snack: '달콤한 샤인머스캣과 짭조름한 프로슈토 꼬치',
         isFallback: true,
       },
     ],
@@ -68,21 +80,27 @@ const SCENARIO_FALLBACK_GROUPS: ScenarioFallbackGroup[] = [
         isFallback: true,
       },
       {
+        comfort: '하나씩 쏙쏙 집어먹으며 키보드에서 손을 떼고 편안하게 영화 한 편 어떠세요?',
+        drink: '향긋한 산토리 가쿠빈 진저 하이볼',
+        snack: '고소한 버터 갈릭 에다마메(풋콩)와 나쵸칩',
+        isFallback: true,
+      },
+      {
         comfort: '끝없는 에러와 과제에 지친 밤, 쌉싸름한 소주 한 잔으로 오늘 하루의 스트레스를 털어내세요.',
         drink: '살얼음 띄운 시원한 소주 (진로 / 새로)',
         snack: '얼큰하고 칼칼한 차돌 라면과 바삭한 김치전',
         isFallback: true,
       },
       {
-        comfort: '수많은 버그와 마감 압박을 이겨낸 당신에게 시원하고 알싸한 한 잔을 선물합니다.',
+        comfort: '배부른 야식 대신 가볍게 씹으며 피로를 녹여낼 수 있는 바삭한 안주를 준비했어요.',
         drink: '쌉싸름하고 홉 향 가득한 IPA 맥주',
-        snack: '매콤한 칠리 치즈 나초 플래터',
+        snack: '바삭하게 구운 먹태구이와 땡초 마요네즈',
         isFallback: true,
       },
       {
-        comfort: '화면만 바라보느라 피로했던 눈과 마음을 편안하게 녹여줄 부드러운 페어링이에요.',
-        drink: '산토리 가쿠빈 진저 하이볼',
-        snack: '달콤 짭조름한 가라아게와 샐러드',
+        comfort: '화면만 바라보느라 피로했던 눈과 마음에 작은 쉼표를 선물합니다.',
+        drink: '산뜻한 블랑 1664 밀맥주',
+        snack: '트러플 오일을 곁들인 감자칩과 블랙 올리브',
         isFallback: true,
       },
     ],
@@ -103,21 +121,21 @@ const SCENARIO_FALLBACK_GROUPS: ScenarioFallbackGroup[] = [
         isFallback: true,
       },
       {
-        comfort: '누구에게도 털어놓지 못한 마음, 조용히 당신의 편이 되어줄 따뜻한 밤을 보냅니다.',
+        comfort: '아무것도 하기 싫을 때 가볍게 한 입, 달콤한 위로가 마음을 다정하게 감싸줄 거예요.',
         drink: '은은한 오크향의 싱글몰트 위스키 (온더락)',
-        snack: '깊은 풍미의 다크 초콜릿과 무화과 크래커',
+        snack: '진한 다크 초콜릿과 무화과 크림치즈 크래커',
         isFallback: true,
       },
       {
         comfort: '오늘따라 마음이 쓸쓸하고 힘든 당신에게, 부드럽고 깊은 풍미의 증류주를 추천해요.',
         drink: '프리미엄 증류식 소주 (화요 25 / 서울의 밤)',
-        snack: '매콤 고소한 삼겹 두부김치',
+        snack: '달콤하고 시원한 파인애플 샤베트 & 황도',
         isFallback: true,
       },
       {
-        comfort: '모든 것이 버겁게 느껴질 때는 그저 따뜻한 위로와 맛있는 한 입이면 충분해요.',
+        comfort: '모든 것이 버겁게 느껴질 때는 그저 따뜻한 위로와 가벼운 달콤함이면 충분해요.',
         drink: '달콤하고 부드러운 깔루아 밀크',
-        snack: '따끈하게 구운 브라우니와 바닐라 아이스크림',
+        snack: '따끈하게 구운 브리 치즈와 아카시아 꿀, 아몬드',
         isFallback: true,
       },
     ],
@@ -132,15 +150,15 @@ const SCENARIO_FALLBACK_GROUPS: ScenarioFallbackGroup[] = [
         isFallback: true,
       },
       {
-        comfort: '오늘을 위해 쏟은 노력의 결실을 축하해요! 가장 찬란한 오늘 밤을 건배하세요.',
+        comfort: '오늘을 위해 쏟은 노력의 결실을 축하해요! 가볍고 향긋한 카나페와 함께 축배를 들어보세요.',
         drink: '상큼하고 화려한 모히또 칵테일',
-        snack: '바질 페스토 카프레제 샐러드',
+        snack: '바질 페스토 카프레제와 훈제연어 카나페',
         isFallback: true,
       },
       {
         comfort: '세상에서 가장 신나는 오늘! 기분 좋은 풍미로 완벽한 밤을 채워보세요.',
-        drink: '묵직하고 우아한 레드 와인 (쉬라즈)',
-        snack: '육즙 가득한 소고기 찹스테이크',
+        drink: '산뜻한 소비뇽 블랑 화이트 와인',
+        snack: '올리브 절임과 고소한 브리치즈 큐브',
         isFallback: true,
       },
     ],
@@ -161,9 +179,15 @@ const SCENARIO_FALLBACK_GROUPS: ScenarioFallbackGroup[] = [
         isFallback: true,
       },
       {
-        comfort: '밤이 깊어갈수록 잔잔해지는 마음, 감미로운 향과 함께 온전한 나만의 시간을 누려보세요.',
+        comfort: '밤이 깊어갈수록 잔잔해지는 마음, 부담 없는 산뜻한 안주와 함께 온전한 나만의 시간을 누려보세요.',
         drink: '향긋한 얼그레이 하이볼',
-        snack: '부드러운 티라미수 케이크',
+        snack: '얼린 청포도와 그릭요거트 그래놀라 볼',
+        isFallback: true,
+      },
+      {
+        comfort: '조용한 밤, 잔잔한 음악과 함께 가볍게 즐기는 힐링 한 모금이에요.',
+        drink: '깔끔한 유자 진토닉',
+        snack: '바질 토마토 브루스케타와 구운 올리브',
         isFallback: true,
       },
     ],
