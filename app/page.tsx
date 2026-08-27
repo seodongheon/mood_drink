@@ -94,8 +94,36 @@ export default function Page() {
           />
         )}
 
+        {/* 로딩 중 스켈레톤 플레이스홀더 */}
+        {loading && (
+          <div className="mt-8 grid gap-4 md:grid-cols-[1.3fr_0.85fr_0.85fr] animate-pulse">
+            <div className="h-44 rounded-2xl bg-primary/20 p-6 flex flex-col justify-between">
+              <div className="h-3 w-28 bg-primary/30 rounded" />
+              <div className="space-y-2">
+                <div className="h-4 w-5/6 bg-primary/30 rounded" />
+                <div className="h-4 w-4/6 bg-primary/30 rounded" />
+              </div>
+              <div className="h-3 w-20 bg-primary/30 rounded" />
+            </div>
+            <div className="h-44 rounded-2xl border border-border bg-card/60 p-6 flex flex-col justify-between">
+              <div className="h-8 w-8 rounded-full bg-muted/70" />
+              <div className="space-y-2">
+                <div className="h-3 w-16 bg-muted/60 rounded" />
+                <div className="h-5 w-3/4 bg-muted/80 rounded" />
+              </div>
+            </div>
+            <div className="h-44 rounded-2xl border border-border bg-card/60 p-6 flex flex-col justify-between">
+              <div className="h-8 w-8 rounded-full bg-muted/70" />
+              <div className="space-y-2">
+                <div className="h-3 w-16 bg-muted/60 rounded" />
+                <div className="h-5 w-3/4 bg-muted/80 rounded" />
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* AI 추천 결과 카드 영역 (기본 상태: 숨김) */}
-        {result && <RecommendationCard result={result} />}
+        {!loading && result && <RecommendationCard result={result} />}
       </section>
     </main>
   );

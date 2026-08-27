@@ -49,7 +49,11 @@ async function fetchGeminiModel(
     contents: [
       {
         role: 'user',
-        parts: [{ text: `사용자의 오늘 하루 상황 및 기분: "${mood}"` }],
+        parts: [
+          {
+            text: `[사용자 오늘 하루 이야기]: "${mood}"\n[요청 시간]: ${Date.now()}\n기존과 겹치지 않는 새롭고 감각적인 페어링을 제안해주세요.`,
+          },
+        ],
       },
     ],
     generationConfig: {
@@ -72,7 +76,7 @@ async function fetchGeminiModel(
         },
         required: ['comfort', 'drink', 'snack'],
       },
-      temperature: 0.75,
+      temperature: 0.85,
       maxOutputTokens: 350,
     },
   };
@@ -99,7 +103,7 @@ async function fetchGeminiModel(
 }
 
 /**
- * Gemini 다중 모델 자동 폴백 파이프라인 (gemini-2.0-flash -> gemini-1.5-flash)
+ * Gemini 다중 모델 자동 폴백 파이프라인 (gemini-2.0-flash -> gemini-1.5-flash -> gemini-1.5-flash-8b)
  */
 async function callGeminiWithFallback(
   mood: string,
@@ -109,8 +113,10 @@ async function callGeminiWithFallback(
 ): Promise<string> {
   const candidateModels = [
     primaryModel,
-    primaryModel !== 'gemini-1.5-flash' ? 'gemini-1.5-flash' : 'gemini-2.0-flash',
-  ].filter(Boolean);
+    'gemini-2.0-flash',
+    'gemini-1.5-flash',
+    'gemini-1.5-flash-8b',
+  ].filter((v, i, a) => a.indexOf(v) === i);
 
   let lastError: unknown = null;
 

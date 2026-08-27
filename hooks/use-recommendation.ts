@@ -39,6 +39,7 @@ export function useRecommendation() {
     // 이전 상태 초기화 및 로딩 시작
     setValidationError(null);
     setErrorMessage(null);
+    setResult(null);
     setLoading(true);
 
     // 이전 요청이 있다면 취소
