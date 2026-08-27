@@ -42,9 +42,9 @@ gantt
     section Sprint 2
     AI 추천 엔진 & 프롬프트/타임아웃 파이프라인 :done, s2, after s1, 2d
     section Sprint 3
-    프론트엔드 UI/UX & 유효성 검증 시스템    :active, s3, after s2, 2d
+    프론트엔드 UI/UX & 유효성 검증 시스템    :done, s3, after s2, 2d
     section Sprint 4
-    엔드투엔드 연동 & 예외 처리(Fallback) 방어선 구축 :s4, after s3, 1d
+    엔드투엔드 연동 & 예외 처리(Fallback) 방어선 구축 :active, s4, after s3, 1d
     section Sprint 5
     QA, 성능 최적화 & PRD 완료 조건 검증      :s5, after s4, 1d
 ```
@@ -54,8 +54,8 @@ gantt
 | :--- | :--- | :---: | :--- |
 | **Sprint 1** | 프로젝트 기반 구축 & 데이터 모델링 | **완료 (Done)** | `lib/types.ts`, `lib/schema.ts`, `.env.example` |
 | **Sprint 2** | AI 추천 엔진 & 타임아웃/Fallback 파이프라인 | **완료 (Done)** | `lib/ai.ts`, `lib/fallback.ts`, `app/api/recommend/route.ts` |
-| **Sprint 3** | 프론트엔드 UI/UX & 유효성 검증 시스템 | **다음 단계 (Next)** | `app/page.tsx`, UI 컴포넌트 |
-| **Sprint 4** | E2E 연동 & 예외 처리(Fallback) 방어선 | **대기 (Pending)** | 클라이언트 훅, 에러 알림 |
+| **Sprint 3** | 프론트엔드 UI/UX & 유효성 검증 시스템 | **완료 (Done)** | `components/input-section.tsx`, `components/recommendation-card.tsx`, `app/page.tsx` |
+| **Sprint 4** | E2E 연동 & 예외 처리(Fallback) 방어선 | **다음 단계 (Next)** | 클라이언트 훅, 에러 알림 |
 | **Sprint 5** | QA, 성능 최적화 & PRD 완료 조건 검증 | **대기 (Pending)** | QA 리포트, 빌드 검증 |
 
 ---
@@ -97,17 +97,17 @@ gantt
 > 📁 상세 문서: [docs/sprint-3/README.md](file:///c:/mood-based-drink-recommender/docs/sprint-3/README.md)  
 > **목표**: PRD 화면 명세를 완벽히 반영한 인터랙티브 UI 컴포넌트 개발
 
-- [ ] **Task 3.1**: 사용자 입력 영역 및 글자 수 카운터 고도화
+- [x] **Task 3.1**: 사용자 입력 영역 및 글자 수 카운터 고도화
   - 300자 입력 제한 물리적 방어 (`maxLength={300}`) 및 실시간 카운터 (`text.length / 300`)
   - 300자 초과 텍스트 붙여넣기 시 자동 Truncate 처리
-- [ ] **Task 3.2**: 유효성 검사 및 에러 경고 UI 구현
+- [x] **Task 3.2**: 유효성 검사 및 에러 경고 UI 구현
   - 0자(빈칸) 입력 시: 입력창 붉은 테두리 + "오늘 하루를 짧게라도 들려주세요!" 경고 멘트 표시
   - 5자 미만 입력 시: "조금 더 자세히 들려주세요!" 경고 멘트 표시
   - 정상 입력 시 실시간 경고 해제
-- [ ] **Task 3.3**: 액션 버튼 및 로딩 인터랙션 구현
+- [x] **Task 3.3**: 액션 버튼 및 로딩 인터랙션 구현
   - 기본 상태: `추천받기` (결과 존재 시 `다시 추천받기`)
   - 로딩 상태: `고민 중...` 텍스트 + `LoaderCircle` 스피너 표시 및 버튼 `disabled` 처리
-- [ ] **Task 3.4**: 결과 카드(Result Card) 컴포넌트 고도화
+- [x] **Task 3.4**: 결과 카드(Result Card) 컴포넌트 고도화
   - 기본 상태: 숨김 (`result === null`)
   - 결과 출력: 공감 멘트 카드, 주종 카드, 안주 카드 3단 그리드 레이아웃
   - 부드러운 전환 애니메이션 (Fade-in, Slide-in) 적용

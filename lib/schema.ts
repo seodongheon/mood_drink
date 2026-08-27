@@ -8,7 +8,7 @@ import { z } from 'zod';
 export const requestSchema = z.object({
   mood: z
     .string({
-      required_error: '오늘 하루를 짧게라도 들려주세요!',
+      message: '오늘 하루를 짧게라도 들려주세요!',
     })
     .trim()
     .min(1, '오늘 하루를 짧게라도 들려주세요!')

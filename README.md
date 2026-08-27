@@ -98,6 +98,6 @@ npm run dev
 | :--- | :--- | :---: | :--- |
 | **Sprint 1** | 프로젝트 기반 구축 & 데이터 모델링 | ✅ 완료 | [Sprint 1 README](docs/sprint-1/README.md) |
 | **Sprint 2** | AI 추천 엔진 & 프롬프트/타임아웃 파이프라인 | ✅ 완료 | [Sprint 2 README](docs/sprint-2/README.md) |
-| **Sprint 3** | 프론트엔드 UI/UX & 유효성 검증 시스템 | ⏳ 다음 단계 | [Sprint 3 README](docs/sprint-3/README.md) |
-| **Sprint 4** | 엔드투엔드 연동 & 예외 처리 방어선 구축 | ⏳ 대기 | [Sprint 4 README](docs/sprint-4/README.md) |
+| **Sprint 3** | 프론트엔드 UI/UX & 유효성 검증 시스템 | ✅ 완료 | [Sprint 3 README](docs/sprint-3/README.md) |
+| **Sprint 4** | 엔드투엔드 연동 & 예외 처리 방어선 구축 | ⏳ 다음 단계 | [Sprint 4 README](docs/sprint-4/README.md) |
 | **Sprint 5** | QA, 성능 최적화 & PRD 완료 조건 검증 | ⏳ 대기 | [Sprint 5 README](docs/sprint-5/README.md) |
