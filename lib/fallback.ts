@@ -1,7 +1,7 @@
 import { RecommendationResult } from './types';
 
 /**
- * PRD 5번 명세에 따른 기본 Fallback 문구 및 추천값 (헤비한 안주부터 가벼운 안주까지 고루 포함)
+ * PRD 5번 명세에 따른 기본 Fallback 문구 및 추천값 (폭넓은 안주 풀)
  */
 export const DEFAULT_FALLBACK_RECOMMENDATIONS: RecommendationResult[] = [
   {
@@ -28,12 +28,24 @@ export const DEFAULT_FALLBACK_RECOMMENDATIONS: RecommendationResult[] = [
     snack: '버터에 구운 브리 치즈와 견과류, 꿀',
     isFallback: true,
   },
+  {
+    comfort: '바쁘게 달려온 하루, 짭조름하고 맛있는 야식 한 입으로 힐링해 보세요.',
+    drink: '시원하고 청량한 켈리 생맥주',
+    snack: '트러플 오일을 두른 짜파게티와 알싸한 파김치',
+    isFallback: true,
+  },
+  {
+    comfort: '모든 피로를 시원하게 털어버릴 수 있는 가장 완벽한 홈술 페어링을 제안합니다.',
+    drink: '상큼한 자몽 하이볼',
+    snack: '탱글탱글한 타코와사비와 김',
+    isFallback: true,
+  },
 ];
 
 export const DEFAULT_FALLBACK_RECOMMENDATION = DEFAULT_FALLBACK_RECOMMENDATIONS[0];
 
 /**
- * 상황별 키워드 기반 스마트 Fallback 데이터셋 (가벼운 안주 & 든든한 안주 황금 밸런스)
+ * 상황별 키워드 기반 스마트 Fallback 데이터셋 (대폭 확장된 미식 페어링 풀)
  */
 interface ScenarioFallbackGroup {
   keywords: string[];
@@ -66,6 +78,18 @@ const SCENARIO_FALLBACK_GROUPS: ScenarioFallbackGroup[] = [
         comfort: '개운하게 운동 마친 오늘 밤, 가볍고 달콤한 과일 안주와 함께 쉬어가세요.',
         drink: '달콤 상큼한 유자 하이볼',
         snack: '달콤한 샤인머스캣과 짭조름한 프로슈토 꼬치',
+        isFallback: true,
+      },
+      {
+        comfort: '열심히 땀 흘린 당신을 위해 기름기 쏙 뺀 담백한 고단백 안주를 준비했어요.',
+        drink: '깔끔한 무알콜 레몬 탄산수 하이볼',
+        snack: '부드러운 훈제 오리구이와 매콤새콤 부추무침',
+        isFallback: true,
+      },
+      {
+        comfort: '운동 후 가볍게 마시는 한 잔, 바다의 쫄깃한 풍미로 피로를 녹여보세요.',
+        drink: '시원한 얼음 카스 라이트',
+        snack: '쫄깃한 문어 숙회와 매콤한 초고추장/참기름장',
         isFallback: true,
       },
     ],
@@ -103,6 +127,24 @@ const SCENARIO_FALLBACK_GROUPS: ScenarioFallbackGroup[] = [
         snack: '트러플 오일을 곁들인 감자칩과 블랙 올리브',
         isFallback: true,
       },
+      {
+        comfort: '야근하느라 출출해진 속을 기분 좋게 채워줄 궁극의 꿀조합 야식이에요.',
+        drink: '시원한 테라 캔맥주',
+        snack: '트러플 오일 짜파게티와 알싸한 파김치',
+        isFallback: true,
+      },
+      {
+        comfort: '모니터 앞을 벗어나 일본 이자카야 감성으로 가볍게 즐겨보세요.',
+        drink: '청량한 짐빔 하이볼',
+        snack: '겉바속촉 닭꼬치 구이(야키토리) 모둠',
+        isFallback: true,
+      },
+      {
+        comfort: '지친 밤, 짭조름하고 바삭한 한 입이 큰 위로가 되어줄 거예요.',
+        drink: '시원한 기네스 흑맥주',
+        snack: '바삭하고 통통한 멘보샤와 스위트 칠리소스',
+        isFallback: true,
+      },
     ],
   },
   {
@@ -138,6 +180,24 @@ const SCENARIO_FALLBACK_GROUPS: ScenarioFallbackGroup[] = [
         snack: '따끈하게 구운 브리 치즈와 아카시아 꿀, 아몬드',
         isFallback: true,
       },
+      {
+        comfort: '쌓였던 화와 스트레스를 화끈하게 털어버릴 수 있는 매콤한 안주를 선물합니다.',
+        drink: '살얼음 띄운 시원한 진로 소주',
+        snack: '불향 가득한 매콤 무뼈 닭발과 고소한 콘치즈',
+        isFallback: true,
+      },
+      {
+        comfort: '속상했던 마음, 매콤달콤한 소울푸드로 따뜻하게 채워보세요.',
+        drink: '청량하고 시원한 레몬맥주',
+        snack: '매콤 칼칼한 국물 떡볶이와 바삭한 모둠 튀김',
+        isFallback: true,
+      },
+      {
+        comfort: '답답한 속을 확 풀어줄 든든하고 감칠맛 넘치는 포차 페어링이에요.',
+        drink: '알싸하고 시원한 처음처럼 소주',
+        snack: '매콤 고소한 삼겹 두부김치',
+        isFallback: true,
+      },
     ],
   },
   {
@@ -161,6 +221,24 @@ const SCENARIO_FALLBACK_GROUPS: ScenarioFallbackGroup[] = [
         snack: '올리브 절임과 고소한 브리치즈 큐브',
         isFallback: true,
       },
+      {
+        comfort: '특별한 날의 주인공인 당신을 위해 파티 분위기를 물씬 풍기는 고급스러운 요리를 추천해요.',
+        drink: '바디감 있는 까베르네 소비뇽 레드 와인',
+        snack: '육즙 가득한 소고기 찹스테이크와 구운 아스파라거스',
+        isFallback: true,
+      },
+      {
+        comfort: '축배를 들며 풍성한 감칠맛에 빠져드는 이국적인 감성 페어링이에요.',
+        drink: '드라이한 화이트 스파클링 와인',
+        snack: '올리브 오일에 끓인 통통한 감바스 알 아히요와 마늘 바게트',
+        isFallback: true,
+      },
+      {
+        comfort: '오늘의 기쁨을 고급스러운 미식과 함께 오래오래 기억하세요.',
+        drink: '부드러운 피노 누아 레드 와인',
+        snack: '트러플 크림 뇨끼와 신선한 루꼴라',
+        isFallback: true,
+      },
     ],
   },
   {
@@ -175,7 +253,7 @@ const SCENARIO_FALLBACK_GROUPS: ScenarioFallbackGroup[] = [
       {
         comfort: '조용히 흘러나오는 빗소리와 함께 은은하게 취하는 밤, 편안한 쉼표가 되길 바라요.',
         drink: '고소하고 부드러운 프리미엄 느린마을 막걸리',
-        snack: '노릇노릇 바삭한 해물파전',
+        snack: '노릇노릇 바삭한 해물파전과 양파 장아찌',
         isFallback: true,
       },
       {
@@ -188,6 +266,18 @@ const SCENARIO_FALLBACK_GROUPS: ScenarioFallbackGroup[] = [
         comfort: '조용한 밤, 잔잔한 음악과 함께 가볍게 즐기는 힐링 한 모금이에요.',
         drink: '깔끔한 유자 진토닉',
         snack: '바질 토마토 브루스케타와 구운 올리브',
+        isFallback: true,
+      },
+      {
+        comfort: '빗소리가 감미로운 밤, 매콤새콤하게 입맛을 돋워줄 정겨운 안주예요.',
+        drink: '달콤한 복순도가 탄산 막걸리',
+        snack: '쫄깃한 골뱅이 소면 무침과 참기름 오이채',
+        isFallback: true,
+      },
+      {
+        comfort: '은은한 조명 아래 깊은 바다의 풍미와 함께 사색에 잠겨보세요.',
+        drink: '달콤한 매실원주 (언더락)',
+        snack: '버터에 노릇하게 구운 통가리비 관자구이',
         isFallback: true,
       },
     ],
