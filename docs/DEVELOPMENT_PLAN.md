@@ -44,9 +44,9 @@ gantt
     section Sprint 3
     프론트엔드 UI/UX & 유효성 검증 시스템    :done, s3, after s2, 2d
     section Sprint 4
-    엔드투엔드 연동 & 예외 처리(Fallback) 방어선 구축 :active, s4, after s3, 1d
+    엔드투엔드 연동 & 예외 처리(Fallback) 방어선 구축 :done, s4, after s3, 1d
     section Sprint 5
-    QA, 성능 최적화 & PRD 완료 조건 검증      :s5, after s4, 1d
+    QA, 성능 최적화 & PRD 완료 조건 검증      :active, s5, after s4, 1d
 ```
 
 ### 📌 스프린트 진행 현황 요약
@@ -55,8 +55,8 @@ gantt
 | **Sprint 1** | 프로젝트 기반 구축 & 데이터 모델링 | **완료 (Done)** | `lib/types.ts`, `lib/schema.ts`, `.env.example` |
 | **Sprint 2** | AI 추천 엔진 & 타임아웃/Fallback 파이프라인 | **완료 (Done)** | `lib/ai.ts`, `lib/fallback.ts`, `app/api/recommend/route.ts` |
 | **Sprint 3** | 프론트엔드 UI/UX & 유효성 검증 시스템 | **완료 (Done)** | `components/input-section.tsx`, `components/recommendation-card.tsx`, `app/page.tsx` |
-| **Sprint 4** | E2E 연동 & 예외 처리(Fallback) 방어선 | **다음 단계 (Next)** | 클라이언트 훅, 에러 알림 |
-| **Sprint 5** | QA, 성능 최적화 & PRD 완료 조건 검증 | **대기 (Pending)** | QA 리포트, 빌드 검증 |
+| **Sprint 4** | E2E 연동 & 예외 처리(Fallback) 방어선 | **완료 (Done)** | `hooks/use-recommendation.ts`, `components/error-toast.tsx`, `app/page.tsx` |
+| **Sprint 5** | QA, 성능 최적화 & PRD 완료 조건 검증 | **다음 단계 (Next)** | QA 리포트, 빌드 검증 |
 
 ---
 
@@ -118,14 +118,14 @@ gantt
 > 📁 상세 문서: [docs/sprint-4/README.md](file:///c:/mood-based-drink-recommender/docs/sprint-4/README.md)  
 > **목표**: 프론트엔드와 백엔드 API 연동 및 PRD 5번 항목의 예외 처리 시나리오 완벽 대응
 
-- [ ] **Task 4.1**: 클라이언트 API 호출 훅 / 핸들러 연동
-  - `fetch('/api/recommend')` 연동 및 비동기 상태 관리
-- [ ] **Task 4.2**: 3초 타임아웃 및 Fallback 렌더링 검증
+- [x] **Task 4.1**: 클라이언트 API 호출 훅 / 핸들러 연동
+  - `fetch('/api/recommend')` 연동 및 비동기 상태 관리 (`hooks/use-recommendation.ts`)
+- [x] **Task 4.2**: 3초 타임아웃 및 Fallback 렌더링 검증
   - 3초 초과 시 프론트엔드에서 사용자 친화적 Fallback 화면 자동 노출
-- [ ] **Task 4.3**: 네트워크/서버 오류 알림 처리
+- [x] **Task 4.3**: 네트워크/서버 오류 알림 처리
   - 5xx 에러 또는 네트워크 단절 시 토스트/경고 배너 노출: "일시적인 연결 문제가 발생했습니다. 잠시 후 다시 시도해 주세요."
   - 에러 발생 후 '추천받기' 버튼 즉시 재활성화
-- [ ] **Task 4.4**: AI 파싱 에러 방어 로직 (UI Protection)
+- [x] **Task 4.4**: AI 파싱 에러 방어 로직 (UI Protection)
   - 비정상적인 줄글이나 깨진 데이터 수신 시에도 UI 크래시 없이 안전하게 Fallback으로 대체 렌더링
 
 ---

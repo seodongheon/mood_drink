@@ -1,72 +1,24 @@
 'use client';
 
-import React, { useState } from 'react';
-import { AlertCircle, Clock3, Moon, Sparkles, Wine } from 'lucide-react';
-import { InputSection, ValidationErrorType } from '@/components/input-section';
+import React from 'react';
+import { Clock3, Moon, Sparkles, Wine } from 'lucide-react';
+import { InputSection } from '@/components/input-section';
 import { RecommendationCard } from '@/components/recommendation-card';
-import { RecommendationResponse, RecommendationResult } from '@/lib/types';
+import { ErrorToast } from '@/components/error-toast';
+import { useRecommendation } from '@/hooks/use-recommendation';
 
 export default function Page() {
-  const [text, setText] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<RecommendationResult | null>(null);
-  const [validationError, setValidationError] = useState<ValidationErrorType>(null);
-  const [apiErrorMessage, setApiErrorMessage] = useState<string | null>(null);
-
-  // 추천 요청 핸들러
-  const handleRecommend = async () => {
-    const trimmed = text.trim();
-
-    // 1. 유효성 검사 (0자 및 5자 미만 방어)
-    if (trimmed.length === 0) {
-      setValidationError('EMPTY');
-      return;
-    }
-    if (trimmed.length < 5) {
-      setValidationError('TOO_SHORT');
-      return;
-    }
-
-    // 유효성 에러 초기화 및 로딩 시작
-    setValidationError(null);
-    setApiErrorMessage(null);
-    setLoading(true);
-
-    try {
-      const response = await fetch('/api/recommend', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ mood: trimmed }),
-      });
-
-      const data: RecommendationResponse = await response.json().catch(() => ({
-        success: false,
-        error: {
-          code: 'AI_ERROR',
-          message: '일시적인 연결 문제가 발생했습니다. 잠시 후 다시 시도해 주세요.',
-          retryable: true,
-        },
-      }));
-
-      if (data.success && data.data) {
-        setResult(data.data);
-      } else {
-        const message =
-          data.error?.message ||
-          '일시적인 연결 문제가 발생했습니다. 잠시 후 다시 시도해 주세요.';
-        setApiErrorMessage(message);
-      }
-    } catch (err) {
-      console.error('Fetch error:', err);
-      setApiErrorMessage(
-        '일시적인 연결 문제가 발생했습니다. 잠시 후 다시 시도해 주세요.'
-      );
-    } finally {
-      setLoading(false);
-    }
-  };
+  const {
+    text,
+    setText,
+    loading,
+    result,
+    validationError,
+    errorMessage,
+    requestRecommendation,
+    clearValidationError,
+    clearErrorMessage,
+  } = useRecommendation();
 
   return (
     <main className="min-h-screen bg-background text-foreground selection:bg-accent/20">
@@ -106,11 +58,11 @@ export default function Page() {
           <InputSection
             text={text}
             onChange={setText}
-            onSubmit={handleRecommend}
+            onSubmit={requestRecommendation}
             loading={loading}
             hasResult={result !== null}
             validationError={validationError}
-            onClearError={() => setValidationError(null)}
+            onClearError={clearValidationError}
           />
 
           {/* 데스크톱 우측 가이드 카드 */}
@@ -135,14 +87,11 @@ export default function Page() {
         </div>
 
         {/* 네트워크/서버 API 에러 알림 배너 */}
-        {apiErrorMessage && (
-          <div
-            role="alert"
-            className="mt-6 flex items-center gap-3 rounded-xl border border-destructive/30 bg-destructive/10 px-4 py-3.5 text-xs text-destructive shadow-sm animate-in fade-in duration-200"
-          >
-            <AlertCircle size={17} className="shrink-0" />
-            <span>{apiErrorMessage}</span>
-          </div>
+        {errorMessage && (
+          <ErrorToast
+            message={errorMessage}
+            onClose={clearErrorMessage}
+          />
         )}
 
         {/* AI 추천 결과 카드 영역 (기본 상태: 숨김) */}
