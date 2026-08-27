@@ -156,9 +156,9 @@ gantt
 | **입력창 & 글자 수 제한** (최대 300자) | Sprint 3 | `components/input-section.tsx`, `app/page.tsx` | 300자 제한 및 카운터 UI |
 | **입력 유효성 검증** (0자, <5자 빨간 경고) | Sprint 3 | `components/input-section.tsx`, `lib/schema.ts` | 조건별 경고 텍스트 & 붉은 테두리 강조 |
 | **로딩 상태 표시** ('고민 중...', 스피너) | Sprint 3 | `components/input-section.tsx` | 버튼 텍스트 변경 및 disabled |
-| **3초 타임아웃 & Fallback** | Sprint 2, 4 | `lib/fallback.ts`, `lib/ai.ts`, `app/api/recommend/route.ts` | 3초 초과 시 맥주/치킨 기본값 노출 |
-| **네트워크/서버 에러 대응** (재시도 안내) | Sprint 4 | `app/page.tsx` | 에러 배너 안내 후 버튼 즉시 재활성화 |
-| **UI 보호 & 재시도 가능** | Sprint 4 | `app/page.tsx`, `lib/ai.ts` | 파싱 실패 방어 & 상시 재추천 가능 |
+| **3초 타임아웃 & Fallback** | Sprint 2, 4 | `lib/fallback.ts`, `lib/ai.ts`, `hooks/use-recommendation.ts` | 3초 초과 시 맥주/치킨 기본값 노출 |
+| **네트워크/서버 에러 대응** (재시도 안내) | Sprint 4 | `components/error-toast.tsx`, `hooks/use-recommendation.ts` | 에러 배너 안내 후 버튼 즉시 재활성화 |
+| **UI 보호 & 재시도 가능** | Sprint 4 | `hooks/use-recommendation.ts`, `app/page.tsx` | 파싱 실패 방어 & 상시 재추천 가능 |
 
 ---
 
