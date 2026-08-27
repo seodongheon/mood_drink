@@ -73,12 +73,12 @@ gantt
 > 📁 상세 문서: [docs/sprint-2/README.md](file:///c:/mood-based-drink-recommender/docs/sprint-2/README.md)  
 > **목표**: PRD 요구 조건을 강제하는 프롬프트 엔지니어링, 3초 타임아웃 제어 및 Fail-safe 엔진 개발
 
-- [ ] **Task 2.1**: AI 프롬프트 엔지니어링 및 JSON Structured Output 강제
+- [x] **Task 2.1**: AI 프롬프트 엔지니어링 및 JSON Structured Output 강제
   - 사전 지식 기반의 주종 1개, 안주 1개, 공감 멘트 1~2문장 출력 규칙 시스템 프롬프트 작성
   - Zod / JSON Schema를 통한 응답 포맷 강제
-- [ ] **Task 2.2**: 3초 타임아웃 제어(Timeout Controller) 구현
+- [x] **Task 2.2**: 3초 타임아웃 제어(Timeout Controller) 구현
   - `AbortController`를 활용하여 3,000ms 초과 시 요청 자동 중단
-- [ ] **Task 2.3**: 기본 추천값(Fallback Engine) 구현
+- [x] **Task 2.3**: 기본 추천값(Fallback Engine) 구현
   - AI 파싱 실패, 타임아웃, 서버 오류 발생 시 제공할 고품질 Fallback 데이터셋 정의
   - 기본값 예시: "AI가 너무 깊게 고민하네요! 오늘은 무조건 시원한 맥주와 치킨을 추천합니다."
 

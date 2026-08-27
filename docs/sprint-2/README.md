@@ -9,12 +9,12 @@
 
 ## 🎯 2. 세부 과업 (Tasks)
 
-- [ ] **Task 2.1: 프롬프트 엔지니어링 및 Structured JSON Output 구성**
+- [x] **Task 2.1: 프롬프트 엔지니어링 및 Structured JSON Output 구성**
   - 시스템 프롬프트 작성: 사용자 입력 상황에 맞는 맞춤 주종 1개, 안주 1개, 따뜻한 공감 멘트(1~2문장) 필수 반환 강제
   - LLM 응답을 Zod 스키마로 검증 및 파싱
-- [ ] **Task 2.2: 3초 타임아웃(Timeout Controller) 구현**
+- [x] **Task 2.2: 3초 타임아웃(Timeout Controller) 구현**
   - `AbortController`를 활용하여 3,000ms 초과 시 LLM API 호출 강제 중단 로직 구현
-- [ ] **Task 2.3: Fail-safe 기본 추천값(Fallback Engine) 구축**
+- [x] **Task 2.3: Fail-safe 기본 추천값(Fallback Engine) 구축**
   - 타임아웃, AI 5xx 오류, 파싱 에러 발생 시 즉시 반환할 기본 추천 데이터셋 구현
   - 기본값 메시지: *"AI가 너무 깊게 고민하네요! 오늘은 무조건 시원한 맥주와 치킨을 추천합니다."*
 
@@ -28,5 +28,5 @@
 ---
 
 ## ✅ 4. 완료 기준 (Definition of Done)
-- [ ] AI 응답이 정확히 `comfort`(1~2문장), `drink`(1개), `snack`(1개) 포맷으로 반환된다.
-- [ ] 3초 초과 지연 시 에러 크래시 없이 즉시 Fallback 추천 결과가 반환된다.
+- [x] AI 응답이 정확히 `comfort`(1~2문장), `drink`(1개), `snack`(1개) 포맷으로 반환된다.
+- [x] 3초 초과 지연 시 에러 크래시 없이 즉시 Fallback 추천 결과가 반환된다.
