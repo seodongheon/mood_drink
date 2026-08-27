@@ -46,7 +46,7 @@ gantt
     section Sprint 4
     엔드투엔드 연동 & 예외 처리(Fallback) 방어선 구축 :done, s4, after s3, 1d
     section Sprint 5
-    QA, 성능 최적화 & PRD 완료 조건 검증      :active, s5, after s4, 1d
+    QA, 성능 최적화 & PRD 완료 조건 검증      :done, s5, after s4, 1d
 ```
 
 ### 📌 스프린트 진행 현황 요약
@@ -56,7 +56,7 @@ gantt
 | **Sprint 2** | AI 추천 엔진 & 타임아웃/Fallback 파이프라인 | **완료 (Done)** | `lib/ai.ts`, `lib/fallback.ts`, `app/api/recommend/route.ts` |
 | **Sprint 3** | 프론트엔드 UI/UX & 유효성 검증 시스템 | **완료 (Done)** | `components/input-section.tsx`, `components/recommendation-card.tsx`, `app/page.tsx` |
 | **Sprint 4** | E2E 연동 & 예외 처리(Fallback) 방어선 | **완료 (Done)** | `hooks/use-recommendation.ts`, `components/error-toast.tsx`, `app/page.tsx` |
-| **Sprint 5** | QA, 성능 최적화 & PRD 완료 조건 검증 | **다음 단계 (Next)** | QA 리포트, 빌드 검증 |
+| **Sprint 5** | QA, 성능 최적화 & PRD 완료 조건 검증 | **완료 (Done)** | `docs/sprint-5/QA_REPORT.md`, `app/layout.tsx` |
 
 ---
 
@@ -134,17 +134,17 @@ gantt
 > 📁 상세 문서: [docs/sprint-5/README.md](file:///c:/mood-based-drink-recommender/docs/sprint-5/README.md)  
 > **목표**: PRD 6대 완료 조건 전수 점검, 반응형/접근성 검증 및 배포 준비
 
-- [ ] **Task 5.1**: PRD 6대 완료 조건 전수 검증 (Verification Checklist)
-  - [ ] 1. 사용자가 텍스트를 입력하고 버튼을 누르면 결과(주종 1개, 안주 1개, 공감 멘트)가 정상 출력되는가?
-  - [ ] 2. 빈 입력(0자) 또는 5자 미만일 때 조건별 안내 문구가 붉은색으로 표시되는가?
-  - [ ] 3. 300자 입력 제한이 정확하게 동작하는가?
-  - [ ] 4. AI 처리 중일 때 '고민 중...' 및 로딩 스피너가 표시되는가?
-  - [ ] 5. 3초 초과(타임아웃), 네트워크 오류, 파싱 실패 시 화면이 죽지 않고 Fallback/안내 문구가 정상 작동하는가?
-  - [ ] 6. 결과 확인 후 언제든 '다시 추천받기' 버튼으로 재시도가 가능한가?
-- [ ] **Task 5.2**: 반응형 디자인 및 접근성(A11y) 점검
+- [x] **Task 5.1**: PRD 6대 완료 조건 전수 검증 (Verification Checklist)
+  - [x] 1. 사용자가 텍스트를 입력하고 버튼을 누르면 결과(주종 1개, 안주 1개, 공감 멘트)가 정상 출력되는가?
+  - [x] 2. 빈 입력(0자) 또는 5자 미만일 때 조건별 안내 문구가 붉은색으로 표시되는가?
+  - [x] 3. 300자 입력 제한이 정확하게 동작하는가?
+  - [x] 4. AI 처리 중일 때 '고민 중...' 및 로딩 스피너가 표시되는가?
+  - [x] 5. 3초 초과(타임아웃), 네트워크 오류, 파싱 실패 시 화면이 죽지 않고 Fallback/안내 문구가 정상 작동하는가?
+  - [x] 6. 결과 확인 후 언제든 '다시 추천받기' 버튼으로 재시도가 가능한가?
+- [x] **Task 5.2**: 반응형 디자인 및 접근성(A11y) 점검
   - 모바일, 태블릿, 데스크톱 화면 비율 최적화
   - `aria-live`, `role="alert"`, 스크린 리더 호환성 점검
-- [ ] **Task 5.3**: 빌드 및 배포 검증 (`pnpm build` 무결성 확인)
+- [x] **Task 5.3**: 빌드 및 배포 검증 (`npm run build` 무결성 확인)
 
 ---
 
