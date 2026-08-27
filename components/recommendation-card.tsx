@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Beer, HeartHandshake, Sparkles, Utensils, Zap } from 'lucide-react';
+import { Beer, HeartHandshake, Sparkles, Utensils, Zap, Quote } from 'lucide-react';
 import { RecommendationResult } from '@/lib/types';
 
 interface RecommendationCardProps {
@@ -12,10 +12,10 @@ export function RecommendationCard({ result }: RecommendationCardProps) {
   return (
     <section
       aria-live="polite"
-      className="animate-in fade-in slide-in-from-bottom-4 mt-8 duration-500"
+      className="animate-in fade-in slide-in-from-bottom-3 mt-6 duration-400"
     >
       {/* 상단 뱃지 및 인디케이터 */}
-      <div className="mb-4 flex items-center justify-between">
+      <div className="mb-3.5 flex items-center justify-between">
         <div className="flex items-center gap-2 font-mono text-[11px] font-semibold tracking-[0.2em] text-accent">
           <Sparkles size={14} />
           <span>FOR YOUR TONIGHT</span>
@@ -28,63 +28,56 @@ export function RecommendationCard({ result }: RecommendationCardProps) {
         )}
       </div>
 
-      {/* 3단 결과 카드 그리드 */}
-      <div className="grid gap-4 md:grid-cols-[1.3fr_0.85fr_0.85fr]">
-        {/* 1. 위로/공감 멘트 카드 */}
-        <div className="relative flex flex-col justify-between overflow-hidden rounded-2xl bg-primary p-6 text-primary-foreground shadow-xl md:p-7">
-          <div className="flex items-center gap-2 font-mono text-[10px] tracking-[0.2em] opacity-70">
-            <HeartHandshake size={13} />
+      {/* 1. 위로/공감 멘트 카드 (상단 전면 배너) */}
+      <div className="relative overflow-hidden rounded-2xl bg-primary p-6 text-primary-foreground shadow-xl md:p-7">
+        <div className="flex items-center justify-between font-mono text-[10px] tracking-[0.2em] opacity-70">
+          <div className="flex items-center gap-1.5">
+            <HeartHandshake size={14} />
             <span>A WARM WORD FOR YOU</span>
           </div>
-
-          <p className="my-5 text-pretty font-serif text-xl leading-8 md:text-2xl md:leading-9">
-            {result.comfort}
-          </p>
-
-          <p className="text-xs font-mono tracking-wider opacity-60">
-            {result.isFallback ? 'AI가 추천한 특별 기본 페어링' : '당신만을 위한 기분 맞춤 페어링'}
-          </p>
+          <Quote size={18} className="opacity-40" />
         </div>
 
-        {/* 2. 주종 카드 */}
-        <div className="flex flex-col justify-between rounded-2xl border border-border bg-card p-6 shadow-lg transition-all hover:shadow-xl">
-          <div className="flex items-center justify-between">
-            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent/15 text-accent">
-              <Beer size={20} />
-            </span>
-            <span className="font-mono text-[10px] font-semibold tracking-[0.2em] text-muted-foreground">
-              01
-            </span>
-          </div>
+        <p className="my-4 text-pretty font-serif text-lg leading-relaxed md:text-2xl md:leading-9">
+          {result.comfort}
+        </p>
 
-          <div className="mt-6">
-            <p className="font-mono text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
+        <p className="text-[11px] font-mono tracking-wider opacity-60">
+          {result.isFallback ? '⚡ AI가 준비한 특별 안심 페어링' : '✨ 당신의 오늘 기분에 맞춘 전용 페어링'}
+        </p>
+      </div>
+
+      {/* 2. 주종 & 안주 2단 대칭 정렬 그리드 */}
+      <div className="mt-4 grid gap-4 sm:grid-cols-2">
+        {/* 주종 카드 */}
+        <div className="flex items-start gap-4 rounded-2xl border border-border bg-card p-5 shadow-md transition-all hover:shadow-lg hover:border-accent/40">
+          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-accent/15 text-accent shadow-sm">
+            <Beer size={22} />
+          </span>
+
+          <div className="flex flex-col justify-center">
+            <span className="font-mono text-[10px] font-semibold tracking-[0.2em] text-accent uppercase">
               RECOMMENDED DRINK
-            </p>
-            <p className="mt-1.5 text-lg font-bold text-foreground leading-snug">
+            </span>
+            <h3 className="mt-1 text-base font-bold text-foreground sm:text-lg leading-snug">
               {result.drink}
-            </p>
+            </h3>
           </div>
         </div>
 
-        {/* 3. 안주 카드 */}
-        <div className="flex flex-col justify-between rounded-2xl border border-border bg-card p-6 shadow-lg transition-all hover:shadow-xl">
-          <div className="flex items-center justify-between">
-            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent/15 text-accent">
-              <Utensils size={20} />
-            </span>
-            <span className="font-mono text-[10px] font-semibold tracking-[0.2em] text-muted-foreground">
-              02
-            </span>
-          </div>
+        {/* 안주 카드 */}
+        <div className="flex items-start gap-4 rounded-2xl border border-border bg-card p-5 shadow-md transition-all hover:shadow-lg hover:border-accent/40">
+          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-accent/15 text-accent shadow-sm">
+            <Utensils size={22} />
+          </span>
 
-          <div className="mt-6">
-            <p className="font-mono text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
+          <div className="flex flex-col justify-center">
+            <span className="font-mono text-[10px] font-semibold tracking-[0.2em] text-accent uppercase">
               PAIRING SNACK
-            </p>
-            <p className="mt-1.5 text-lg font-bold text-foreground leading-snug">
+            </span>
+            <h3 className="mt-1 text-base font-bold text-foreground sm:text-lg leading-snug">
               {result.snack}
-            </p>
+            </h3>
           </div>
         </div>
       </div>

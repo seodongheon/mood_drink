@@ -96,27 +96,33 @@ export default function Page() {
 
         {/* 로딩 중 스켈레톤 플레이스홀더 */}
         {loading && (
-          <div className="mt-8 grid gap-4 md:grid-cols-[1.3fr_0.85fr_0.85fr] animate-pulse">
-            <div className="h-44 rounded-2xl bg-primary/20 p-6 flex flex-col justify-between">
-              <div className="h-3 w-28 bg-primary/30 rounded" />
+          <div className="mt-6 animate-pulse space-y-4">
+            {/* 상단 공감 멘트 스켈레톤 */}
+            <div className="h-36 rounded-2xl bg-primary/20 p-6 flex flex-col justify-between">
+              <div className="h-3 w-32 bg-primary/30 rounded" />
               <div className="space-y-2">
                 <div className="h-4 w-5/6 bg-primary/30 rounded" />
                 <div className="h-4 w-4/6 bg-primary/30 rounded" />
               </div>
-              <div className="h-3 w-20 bg-primary/30 rounded" />
+              <div className="h-3 w-24 bg-primary/30 rounded" />
             </div>
-            <div className="h-44 rounded-2xl border border-border bg-card/60 p-6 flex flex-col justify-between">
-              <div className="h-8 w-8 rounded-full bg-muted/70" />
-              <div className="space-y-2">
-                <div className="h-3 w-16 bg-muted/60 rounded" />
-                <div className="h-5 w-3/4 bg-muted/80 rounded" />
+
+            {/* 하단 주종 & 안주 2열 스켈레톤 */}
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="h-24 rounded-2xl border border-border bg-card/60 p-5 flex items-center gap-4">
+                <div className="h-12 w-12 rounded-xl bg-muted/80 shrink-0" />
+                <div className="space-y-2 flex-1">
+                  <div className="h-3 w-20 bg-muted/60 rounded" />
+                  <div className="h-5 w-4/5 bg-muted/80 rounded" />
+                </div>
               </div>
-            </div>
-            <div className="h-44 rounded-2xl border border-border bg-card/60 p-6 flex flex-col justify-between">
-              <div className="h-8 w-8 rounded-full bg-muted/70" />
-              <div className="space-y-2">
-                <div className="h-3 w-16 bg-muted/60 rounded" />
-                <div className="h-5 w-3/4 bg-muted/80 rounded" />
+
+              <div className="h-24 rounded-2xl border border-border bg-card/60 p-5 flex items-center gap-4">
+                <div className="h-12 w-12 rounded-xl bg-muted/80 shrink-0" />
+                <div className="space-y-2 flex-1">
+                  <div className="h-3 w-20 bg-muted/60 rounded" />
+                  <div className="h-5 w-4/5 bg-muted/80 rounded" />
+                </div>
               </div>
             </div>
           </div>
