@@ -106,7 +106,7 @@ async function fetchGeminiModel(
 }
 
 /**
- * Gemini 다중 모델 자동 폴백 파이프라인 (gemini-2.0-flash -> gemini-1.5-flash -> gemini-1.5-flash-8b)
+ * Gemini 다중 모델 자동 폴백 파이프라인 (gemini-3.6-flash -> gemini-2.5-flash -> gemini-2.0-flash)
  */
 async function callGeminiWithFallback(
   mood: string,
@@ -116,9 +116,10 @@ async function callGeminiWithFallback(
 ): Promise<string> {
   const candidateModels = [
     primaryModel,
+    'gemini-3.6-flash',
+    'gemini-2.5-flash',
     'gemini-2.0-flash',
     'gemini-1.5-flash',
-    'gemini-1.5-flash-8b',
   ].filter((v, i, a) => a.indexOf(v) === i);
 
   let lastError: unknown = null;
@@ -257,7 +258,7 @@ export async function generateDrinkRecommendation(
     options?.model ??
     process.env.AI_MODEL ??
     process.env.GEMINI_MODEL ??
-    (provider === 'openai' ? 'gpt-4o-mini' : 'gemini-2.0-flash');
+    (provider === 'openai' ? 'gpt-4o-mini' : 'gemini-3.6-flash');
 
   // 타임아웃 제어용 AbortController 설정
   const controller = new AbortController();

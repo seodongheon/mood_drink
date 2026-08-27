@@ -1,3 +1,26 @@
+import fs from 'fs';
+import path from 'path';
+
+// .env 파일 자동 로드
+try {
+  const envPath = path.resolve(process.cwd(), '.env');
+  if (fs.existsSync(envPath)) {
+    const envContent = fs.readFileSync(envPath, 'utf-8');
+    envContent.split('\n').forEach((line) => {
+      const match = line.match(/^\s*([\w_]+)\s*=\s*(.*)?\s*$/);
+      if (match) {
+        const key = match[1];
+        let val = (match[2] || '').trim();
+        if (val.startsWith('"') && val.endsWith('"')) val = val.slice(1, -1);
+        if (val.startsWith("'") && val.endsWith("'")) val = val.slice(1, -1);
+        process.env[key] = val;
+      }
+    });
+  }
+} catch (e) {
+  // 무시
+}
+
 import { generateDrinkRecommendation } from '../lib/ai';
 
 const TEST_SCENARIOS = [
@@ -51,7 +74,7 @@ async function runGeminiBenchmark() {
       console.log(`   💌 위로/공감 멘트 : "${result.comfort}"`);
       console.log(`   🍺 추천 주종     : ${result.drink}`);
       console.log(`   🍴 페어링 안주   : ${result.snack}`);
-      console.log(`   🏷️ Fallback 여부 : ${result.isFallback ? '⚡ Fallback' : '🤖 실시간 AI 생성'}`);
+      console.log(`   🏷️ Fallback 여부 : ${result.isFallback ? '⚡ Fallback (안심 대체)' : '🤖 실시간 AI 생성'}`);
     } catch (err) {
       console.error(`❌ 에러 발생:`, err);
     }
