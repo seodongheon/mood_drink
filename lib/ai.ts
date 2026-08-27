@@ -177,9 +177,39 @@ export async function generateDrinkRecommendation(
   options?: AIOptions
 ): Promise<RecommendationResult> {
   const timeoutMs = options?.timeoutMs ?? parseInt(process.env.AI_TIMEOUT_MS || '3000', 10);
-  const provider = options?.provider ?? process.env.AI_PROVIDER ?? 'mock';
-  const apiKey = options?.apiKey ?? process.env.AI_API_KEY;
-  const model = options?.model ?? process.env.AI_MODEL ?? (provider === 'openai' ? 'gpt-4o-mini' : 'gemini-2.0-flash');
+
+  // Gemini API 키 우선순위 탐색 (GEMINI_API_KEY -> GOOGLE_API_KEY -> AI_API_KEY)
+  const geminiKey =
+    process.env.GEMINI_API_KEY ||
+    process.env.GOOGLE_API_KEY ||
+    process.env.GOOGLE_GENERATIVE_AI_API_KEY ||
+    (process.env.AI_PROVIDER === 'gemini' ? process.env.AI_API_KEY : undefined);
+
+  const openAiKey =
+    process.env.OPENAI_API_KEY ||
+    (process.env.AI_PROVIDER === 'openai' ? process.env.AI_API_KEY : undefined);
+
+  // Provider 결정 (명시적 지정 -> 키 존재 여부 기반 자동 감지 -> Mock)
+  let provider = options?.provider ?? process.env.AI_PROVIDER;
+  if (!provider || provider === 'mock') {
+    if (geminiKey && geminiKey !== 'your_api_key_here' && geminiKey.trim().length > 0) {
+      provider = 'gemini';
+    } else if (openAiKey && openAiKey !== 'your_api_key_here' && openAiKey.trim().length > 0) {
+      provider = 'openai';
+    } else {
+      provider = 'mock';
+    }
+  }
+
+  const apiKey =
+    options?.apiKey ??
+    (provider === 'gemini' ? geminiKey : provider === 'openai' ? openAiKey : process.env.AI_API_KEY);
+
+  const model =
+    options?.model ??
+    process.env.AI_MODEL ??
+    process.env.GEMINI_MODEL ??
+    (provider === 'openai' ? 'gpt-4o-mini' : 'gemini-2.0-flash');
 
   // 타임아웃 제어용 AbortController 설정
   const controller = new AbortController();
@@ -191,11 +221,14 @@ export async function generateDrinkRecommendation(
     let rawJsonResponse: string;
 
     // Provider 분기
-    if (provider === 'gemini' && apiKey && apiKey !== 'your_api_key_here') {
-      rawJsonResponse = await callGemini(mood, apiKey, model, controller.signal);
-    } else if (provider === 'openai' && apiKey && apiKey !== 'your_api_key_here') {
-      rawJsonResponse = await callOpenAI(mood, apiKey, model, controller.signal);
+    if (provider === 'gemini' && apiKey && apiKey !== 'your_api_key_here' && apiKey.trim().length > 0) {
+      console.log(`[AI Engine] Calling Google Gemini API (model: ${model})...`);
+      rawJsonResponse = await callGemini(mood, apiKey.trim(), model, controller.signal);
+    } else if (provider === 'openai' && apiKey && apiKey !== 'your_api_key_here' && apiKey.trim().length > 0) {
+      console.log(`[AI Engine] Calling OpenAI API (model: ${model})...`);
+      rawJsonResponse = await callOpenAI(mood, apiKey.trim(), model, controller.signal);
     } else {
+      console.log('[AI Engine] No valid API key found. Using Smart Mock engine...');
       rawJsonResponse = await callMock(mood, controller.signal);
     }
 
