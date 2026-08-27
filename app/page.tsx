@@ -94,34 +94,34 @@ export default function Page() {
           />
         )}
 
-        {/* 로딩 중 스켈레톤 플레이스홀더 */}
+        {/* 로딩 중 스켈레톤 플레이스홀더 (좌: 공감 / 우: 주종&안주 세로) */}
         {loading && (
-          <div className="mt-6 animate-pulse space-y-4">
-            {/* 상단 공감 멘트 스켈레톤 */}
-            <div className="h-36 rounded-2xl bg-primary/20 p-6 flex flex-col justify-between">
+          <div className="mt-6 grid gap-4 md:grid-cols-[1.3fr_1fr] items-stretch animate-pulse">
+            {/* 왼쪽 공감 멘트 스켈레톤 */}
+            <div className="min-h-60 rounded-2xl bg-primary/20 p-6 flex flex-col justify-between">
               <div className="h-3 w-32 bg-primary/30 rounded" />
-              <div className="space-y-2">
-                <div className="h-4 w-5/6 bg-primary/30 rounded" />
-                <div className="h-4 w-4/6 bg-primary/30 rounded" />
+              <div className="space-y-2.5">
+                <div className="h-5 w-5/6 bg-primary/30 rounded" />
+                <div className="h-5 w-4/6 bg-primary/30 rounded" />
               </div>
-              <div className="h-3 w-24 bg-primary/30 rounded" />
+              <div className="h-3 w-28 bg-primary/30 rounded" />
             </div>
 
-            {/* 하단 주종 & 안주 2열 스켈레톤 */}
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div className="h-24 rounded-2xl border border-border bg-card/60 p-5 flex items-center gap-4">
+            {/* 오른쪽 주종 & 안주 세로 스택 스켈레톤 */}
+            <div className="flex flex-col gap-4 justify-between">
+              <div className="flex-1 rounded-2xl border border-border bg-card/60 p-5 flex items-center gap-4 min-h-28">
                 <div className="h-12 w-12 rounded-xl bg-muted/80 shrink-0" />
                 <div className="space-y-2 flex-1">
                   <div className="h-3 w-20 bg-muted/60 rounded" />
-                  <div className="h-5 w-4/5 bg-muted/80 rounded" />
+                  <div className="h-5 w-3/4 bg-muted/80 rounded" />
                 </div>
               </div>
 
-              <div className="h-24 rounded-2xl border border-border bg-card/60 p-5 flex items-center gap-4">
+              <div className="flex-1 rounded-2xl border border-border bg-card/60 p-5 flex items-center gap-4 min-h-28">
                 <div className="h-12 w-12 rounded-xl bg-muted/80 shrink-0" />
                 <div className="space-y-2 flex-1">
                   <div className="h-3 w-20 bg-muted/60 rounded" />
-                  <div className="h-5 w-4/5 bg-muted/80 rounded" />
+                  <div className="h-5 w-3/4 bg-muted/80 rounded" />
                 </div>
               </div>
             </div>
